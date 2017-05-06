@@ -1,55 +1,54 @@
-## Website Performance Optimization portfolio project
+#Website Performance Optimization portfolio project
 
-Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+    To view the page on a local web server:
 
-To get started, check out the repository and inspect the code.
+$> cd /path/to/your-project-folder
+$> python -m SimpleHTTPServer 8080
 
-### Getting started
+    Open a browser and visit localhost:8080
+    Download and install ngrok to make your local server accessible remotely.
 
-#### Part 1: Optimize PageSpeed Insights score for index.html
+$> cd /path/to/your-project-folder
+$> ngrok http 8080
 
-Some useful tips to help you get started:
+    Copy the public URL ngrok gives you and test it through PageSpeed Insights and WebPageTest.
 
-1. Check out the repository
-1. To inspect the site on your phone, you can run a local server
 
-  ```bash
-  $> cd /path/to/your-project-folder
-  $> python -m SimpleHTTPServer 8080
-  ```
+### index.html
 
-1. Open a browser and visit localhost:8080
-1. Download and install [ngrok](https://ngrok.com/) to the top-level of your project directory to make your local server accessible remotely.
+    converted pizzeria.jpg into 2 images: one 293px width (pizzeria-small.jpg) for the index.html  and one 720px width (pizzeria-medium.jpg) for pizza.html
 
-  ``` bash
-  $> cd /path/to/your-project-folder
-  $> ./ngrok http 8080
-  ```
+    Made Google Analytics script asynchronousby adding the attribute async to it.
+    added the (media="print") for the stylesheet of print.css
 
-1. Copy the public URL ngrok gives you and try running it through PageSpeed Insights! Optional: [More on integrating ngrok, Grunt and PageSpeed.](http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/)
 
-Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
+    Removed Google font line because it takes long time to load and is blocking rendering.
 
-#### Part 2: Optimize Frames per Second in pizza.html
+    Downloaded thumbnails that are provided after testing with (PageSpeed Insights) and switched them with old unoptimized thumbnails from /img.
 
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
+    Minified index.html.
 
-You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
+    Minified HTML
 
-### Optimization Tips and Tricks
-* [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
-* [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")
-* [Optimizing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/optimizing-critical-rendering-path.html "optimize the crp!")
-* [Avoiding Rendering Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css.html "render blocking css")
-* [Optimizing JavaScript](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/adding-interactivity-with-javascript.html "javascript")
-* [Measuring with Navigation Timing](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp.html "nav timing api"). We didn't cover the Navigation Timing API in the first two lessons but it's an incredibly useful tool for automated page profiling. I highly recommend reading.
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/eliminate-downloads.html">The fewer the downloads, the better</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer.html">Reduce the size of text</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization.html">Optimize images</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching.html">HTTP caching</a>
+###Results: PageSpeed Mobile: 94 PageSpeed Desktop: 91 Webpagetest 3G: fully Loaded 2.3s
 
-### Customization with Bootstrap
-The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
+##pizza.html ###Starting point (from source): 2015-12-13 17:06:17.681 main.js:494 Average time to generate last 10 frames: 49.501000000000204ms 2015-12-13 17:06:18.444 main.js:494 Average time to generate last 10 frames: 46.564500000000045ms 2015-12-13 17:06:20.018 main.js:466 Time to resize pizzas: 113.5649999999996ms 2015-12-13 17:06:21.284 main.js:466 Time to resize pizzas: 113.5649999999996ms
 
-* <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
-* <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
+    Optimise pizzeria images, serving 2 versions media queries.
+    Work on updatePositions:
+    moved "document.body.scrollTop / 1250" out of the for loop
+    added will-change: transform; to .main in style.css
+    changed left to transformX
+    No need to transform 200 pizzas, so get numbers of cols and rows to have the minimum visible requirement.
+    Resize pizza, no need to calc dx & newwidth in the for loop, all same size so getting these from [0] is enough
+    changed querySelectorAll with getElementsByClassName
+    got size of array before loop
+
+###Results: 2015-12-14 21:24:04.349 main.js:523 Average time to generate last 10 frames: 0.29600000000000365ms 2015-12-14 21:24:04.516 main.js:523 Average time to generate last 10 frames: 0.3085000000001855ms 2015-12-14 21:24:07.908 main.js:495 Time to resize pizzas: 1.4599999999991269ms 2015-12-14 21:24:09.894 main.js:495 Time to resize pizzas: 1.4599999999991269ms 2015-12-14 21:24:12.669 main.js:523 Average time to generate last 10 frames: 0.2565000000002328ms
+
+#TO DO:
+
+    See if using web workers for some of the functions would help performaances
+    There are no timer but maybe it would be possible to implement requestAnimationFrame
+    Improve the design of the pizzeria page, lots to be done here
+
