@@ -206,10 +206,10 @@ var resizePizzas = function(size) {
     }
 
     function changePizzaSizes(size) {
-        var dx = determineDx(document.getElementsByClassName(".randomPizzaContainer")[i], size);
-        var newwidth = (document.getElementsByClassName(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-        for (var i = 0; i < document.getElementsByClassName(".randomPizzaContainer").length; i++) {
-            document.getElementsByClassName(".randomPizzaContainer")[i].style.width = newwidth;
+        var dx = determineDx(document.getElementsByClassName("randomPizzaContainer")[i], size);
+        var newwidth = (document.getElementsByClassName("randomPizzaContainer")[i].offsetWidth + dx) + 'px';
+        for (var i = 0; i < document.getElementsByClassName("randomPizzaContainer").length; i++) {
+            document.getElementsByClassName("randomPizzaContainer")[i].style.width = newwidth;
         }
     }
     changePizzaSizes(size);
@@ -237,7 +237,7 @@ function logAverageFrame(times) {
     }
     console.log("Average scripting time to generate last 10 frames: " + sum / 10 + "ms");
 }
-var items = document.getElementsByClassName('.mover');
+var items = document.getElementsByClassName('mover');
 
 function updatePositions() {
     frame++;
@@ -256,9 +256,10 @@ function updatePositions() {
 }
 window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
-    var rows = Math.floor(visibleHeight / s) + 1;
+    var visibleHeight = screen.availHeight;
     var cols = 8;
     var s = 256;
+    var rows = Math.floor(visibleHeight / s) + 1;
     var elem = document.createElement('img');
     for (var i = 0; i < rows * cols; i++) {
         elem.className = 'mover';
